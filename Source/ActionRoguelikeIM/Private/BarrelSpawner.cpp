@@ -11,14 +11,8 @@ ABarrelSpawner::ABarrelSpawner()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SpawnPointC = CreateDefaultSubobject<USceneComponent>("SpawnPointC");
-	//RootComponent = SpawnPointC;
-	//SpawnPointC->SetupAttachment(RootComponent);
-
 	SpawnPointR = CreateDefaultSubobject<USceneComponent>("SpawnPointR");
-	//SpawnPointR->SetupAttachment(SpawnPointC);
-
 	SpawnPointL = CreateDefaultSubobject<USceneComponent>("SpawnPointL");
-	//SpawnPointL->SetupAttachment(SpawnPointC);
 
 }
 
@@ -30,7 +24,6 @@ void ABarrelSpawner::BeginPlay()
 	FVector Location = SpawnPointL->GetComponentLocation();
 	FRotator Rotation = SpawnPointL->GetComponentRotation();
 	SpawnActor(Location, Rotation);
-
 
 	Location = SpawnPointC->GetComponentLocation();
 	Rotation = SpawnPointC->GetComponentRotation();
@@ -45,8 +38,8 @@ void ABarrelSpawner::BeginPlay()
 void ABarrelSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
+
 
 bool ABarrelSpawner::SpawnActor(FVector Location, FRotator Rotation) {
 
