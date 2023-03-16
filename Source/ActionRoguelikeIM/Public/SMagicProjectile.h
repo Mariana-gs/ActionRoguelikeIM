@@ -7,7 +7,7 @@
 #include "SMagicProjectile.generated.h"
 
 class USphereComponent;
-class UprojectileMovementComponent;
+class UProjectileMovementComponent;
 class UParticleSystemComponent;
 
 
@@ -21,7 +21,7 @@ public:
 	ASMagicProjectile();
 
 protected:
-
+	
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* SphereComp;
 
@@ -31,7 +31,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* EffectComp;
 
-
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
