@@ -5,7 +5,6 @@
 #include "Components/StaticMeshComponent.h"
 #include "SMagicProjectile.h"
 
-
 // Sets default values
 ABarrel::ABarrel(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -37,7 +36,6 @@ void ABarrel::BeginPlay(){
 void ABarrel::Tick(float DeltaTime){
 	Super::Tick(DeltaTime);
 }
-
 
 void ABarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit){
