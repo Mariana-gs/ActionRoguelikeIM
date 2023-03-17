@@ -41,7 +41,6 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void SpawnBarrels();
 
-
 	// Actor class to spawn
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> Barrel;
@@ -53,7 +52,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float time;
 
 };

@@ -33,7 +33,11 @@ protected:
 	USpringArmComponent* SpringArmComp;
 
 	void MoveForward(float Value);
+
 	void MoveRight(float Value);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int score;
 
 public:	
 	// Called every frame
