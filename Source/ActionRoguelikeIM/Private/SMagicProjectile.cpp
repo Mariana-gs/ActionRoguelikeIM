@@ -18,7 +18,6 @@ ASMagicProjectile::ASMagicProjectile()
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);
-
 	
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
 	MovementComp->InitialSpeed = 1000.0f;
@@ -37,4 +36,6 @@ void ASMagicProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+
+
 
