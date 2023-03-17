@@ -24,11 +24,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Static Mesh")
 	UStaticMeshComponent* StaticMeshBarrel;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	URadialForceComponent* RadialForce;
+
 	UFUNCTION(BlueprintCallable)
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	URadialForceComponent* RadialForce;
 
 public:	
 	// Called every frame

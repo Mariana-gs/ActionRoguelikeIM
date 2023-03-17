@@ -3,6 +3,14 @@
 
 #include "BarrelSpawner.h"
 
+#include <string>
+
+#include "Barrel.h"
+#include "EngineUtils.h"
+#include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
+
+
 
 // Sets default values
 ABarrelSpawner::ABarrelSpawner()
@@ -16,39 +24,44 @@ ABarrelSpawner::ABarrelSpawner()
 
 }
 
+
 // Called when the game starts or when spawned
 void ABarrelSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector Location = SpawnPointL->GetComponentLocation();
-	FRotator Rotation = SpawnPointL->GetComponentRotation();
-	SpawnActor(Location, Rotation);
-
-	Location = SpawnPointC->GetComponentLocation();
-	Rotation = SpawnPointC->GetComponentRotation();
-	SpawnActor(Location, Rotation);
-
-	Location = SpawnPointR->GetComponentLocation();
-	Rotation = SpawnPointR->GetComponentRotation();
-	SpawnActor(Location, Rotation);
 }
 
 // Called every frame
 void ABarrelSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//time = rand() % 3;
+	
+	FTimerHandle Temporizador;
+	GetWorldTimerManager().SetTimer(Temporizador, this, FTimerDelegate::TUObjectMethodDelegate<ABarrelSpawner>::FMethodPtr(&ABarrelSpawner::SpawnBarrels), 3.f, false);
 }
 
+void ABarrelSpawner::SpawnBarrels() {
 
-bool ABarrelSpawner::SpawnActor(FVector Location, FRotator Rotation) {
+	TArray<USceneComponent*> Scenes = {SpawnPointC, SpawnPointR, SpawnPointL};
+	int RIndex = rand() % 3;
+	FVector Location = Scenes[RIndex]->GetComponentLocation();
+	FRotator Rotation = Scenes[RIndex]->GetComponentRotation();
 
 	TSubclassOf<AActor> Barrels[] = {Barrel, ExplosiveBarrel};
 	int RandIndex = rand() % 2;
-	GetWorld()->SpawnActor<AActor>(Barrels[RandIndex], Location, Rotation);
 
-	return true;
+	GetWorld()->SpawnActor<AActor>(Barrels[RandIndex], Location, Rotation);
+	//return true;
 }
 
-
+void ABarrelSpawner::EndGame()
+{
+	for(TActorIterator<ABarrel> ActorItr(GetWorld()); ActorItr; ++ActorItr){
+		ActorItr->Destroy();
+	}
+	this->Destroy();
+}
 

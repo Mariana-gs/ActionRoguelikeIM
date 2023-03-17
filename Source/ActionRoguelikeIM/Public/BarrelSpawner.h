@@ -21,6 +21,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Seconds = 00.0f;
 
+	UFUNCTION(BlueprintCallable)
+	void EndGame();
+
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,9 +38,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* SpawnPointL;
 
-
 	UFUNCTION(BlueprintCallable)
-	bool SpawnActor(FVector Location, FRotator Rotation);
+	void SpawnBarrels();
+
 
 	// Actor class to spawn
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -48,5 +52,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float time;
 
 };
