@@ -22,8 +22,8 @@ ABarrel::ABarrel(){
 
 	StaticMeshBarrel->SetupAttachment(RootComponent);
 
-	RadialForce = CreateDefaultSubobject<URadialForceComponent>("RadialForce");
-	RadialForce->SetupAttachment(StaticMeshBarrel);
+	//RadialForce = CreateDefaultSubobject<URadialForceComponent>("RadialForce");
+	//RadialForce->SetupAttachment(StaticMeshBarrel);
 }
 
 
