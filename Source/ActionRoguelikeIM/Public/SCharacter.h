@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class USInteractionComponent;
 
 UCLASS()
 class ACTIONROGUELIKEIM_API ASCharacter : public ACharacter
@@ -36,6 +37,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
+	UPROPERTY(VisibleAnywhere)
+	USInteractionComponent* InteractionComp;
+
 	//Pontuação do Player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Score;
@@ -46,6 +50,8 @@ protected:
 	void MoveForward(float Value);
 
 	void MoveRight(float Value);
+
+	void PrimaryInteract();
 
 public:	
 	// Called every frame
