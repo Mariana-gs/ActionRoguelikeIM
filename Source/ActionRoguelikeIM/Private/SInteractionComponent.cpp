@@ -49,7 +49,7 @@ void USInteractionComponent::PrimaryInteract() {
 
 
 	FHitResult Hit;
-	GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
+	bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
 
 	AActor* HitActor = Hit.GetActor();
 
@@ -65,6 +65,7 @@ void USInteractionComponent::PrimaryInteract() {
 
 	}
 
-	DrawDebugLine(GetWorld(), EyeLocation, End, FColor::Red, false, 2.0f);
+	FColor LineColor = bBlockingHit ? FColor::Green : FColor::Red;
+	DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f);
 
 }
