@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "..\Public\SCharacter.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -23,9 +24,8 @@ ASCharacter::ASCharacter()
 
 	bUseControllerRotationYaw = false;
 
+
 }
-
-
 
 // Called when the game starts or when spawned
 void ASCharacter::BeginPlay()
@@ -41,7 +41,6 @@ void ASCharacter::Tick(float DeltaTime)
 
 }
 
-
 // Called to bind functionality to input
 void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -55,11 +54,10 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 }
 
-
-void ASCharacter::MoveForward(float Value)
-{
+void ASCharacter::MoveForward(float Value){
 	FRotator ControlRot = GetControlRotation();
 	ControlRot.Pitch = 0.0f;
 	ControlRot.Roll = 0.0f;
@@ -79,6 +77,8 @@ void ASCharacter::MoveRight(float Value)
 	AddMovementInput(RightVector, Value);
 }
 
+
+//Realiza Ataque 
 void ASCharacter::PrimaryAttack()
 {
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
@@ -90,6 +90,8 @@ void ASCharacter::PrimaryAttack()
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
 
+
+//Atualiza Pontuação do Player
 void ASCharacter::AdicionarPonto()
 {
 	Score++;

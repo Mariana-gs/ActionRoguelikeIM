@@ -19,7 +19,6 @@ ABarrel::ABarrel(){
 
 	//Anexando a Função OnComponentHit
 	StaticMeshBarrel->OnComponentHit.AddDynamic(this, &ABarrel::OnHit);
-
 	StaticMeshBarrel->SetupAttachment(RootComponent);
 
 	//RadialForce = CreateDefaultSubobject<URadialForceComponent>("RadialForce");
@@ -37,6 +36,7 @@ void ABarrel::Tick(float DeltaTime){
 	Super::Tick(DeltaTime);
 }
 
+//Destruir Barril 
 void ABarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit){
 

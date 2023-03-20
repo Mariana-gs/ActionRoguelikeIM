@@ -25,6 +25,7 @@ ABarrelSpawner::ABarrelSpawner(){
 void ABarrelSpawner::BeginPlay(){
 	Super::BeginPlay();
 
+	//Agendar o primeiro spawn
 	SpawnBarrelScheduled();
 }
 
@@ -34,7 +35,7 @@ void ABarrelSpawner::Tick(float DeltaTime){
 
 }
 
-//Agendar o spawn
+//Agendar o spawn  do barril
 void ABarrelSpawner::ScheduleBarrelSpawn()
 {
 	float DeltaToNextSpawn = AvgSpawnTime + (-RandomSpawnTimeOffset + 2 * RandomSpawnTimeOffset * FMath::FRand());
@@ -45,6 +46,8 @@ void ABarrelSpawner::ScheduleBarrelSpawn()
 	GetWorld()->GetTimerManager().SetTimer(Temporizador, this, &ABarrelSpawner::SpawnBarrelScheduled, DeltaToNextSpawn, false);
 }
 
+
+//Spawnar barril e agendar o próximo spawn
 void ABarrelSpawner::SpawnBarrelScheduled()
 {
 	SpawnBarrel();
@@ -56,19 +59,21 @@ void ABarrelSpawner::SpawnBarrelScheduled()
 //Spawnar em um dos tres pontos aleatoriamente
 void ABarrelSpawner::SpawnBarrel() {
 
-	//Localização Aleatória
 	TArray<USceneComponent*> Scenes = {SpawnPointC, SpawnPointR, SpawnPointL};
-	int RIndex = rand() % 3;
+	int RIndex = rand() % 3; //Gerar índice aleatório
+
 	FVector Location = Scenes[RIndex]->GetComponentLocation();
 	FRotator Rotation = Scenes[RIndex]->GetComponentRotation();
 	
 	SpawnRandomBarrel(Location, Rotation);
 }
 
+//Spawnar Barril aleatório entre explosivo e normal na localização informada
 void ABarrelSpawner::SpawnRandomBarrel(FVector Location, FRotator Rotation)
 {
 	TSubclassOf<AActor> Barrels[] = {Barrel, ExplosiveBarrel};
-	int RandIndex = rand() % 2;
+	int RandIndex = rand() % 2; //Gerar índice aleatório
+
 	GetWorld()->SpawnActor<AActor>(Barrels[RandIndex], Location, Rotation);
 }
 

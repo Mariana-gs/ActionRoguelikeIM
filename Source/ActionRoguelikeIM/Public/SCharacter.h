@@ -30,29 +30,31 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ProjectileClass;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
+	//Pontuação do Player
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Score;
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 	void MoveForward(float Value);
 
 	void MoveRight(float Value);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int Score;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void PrimaryAttack();
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	//Realiza Ataque 
+	void PrimaryAttack();
 
 };
