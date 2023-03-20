@@ -18,6 +18,13 @@ public:
 	// Sets default values for this character's properties
 	ASCharacter();
 
+	UFUNCTION(BlueprintCallable)
+	void AdicionarPonto();
+
+	UFUNCTION(BlueprintCallable)
+	void SubtrairPonto();
+
+
 protected:
 
 	UPROPERTY(EditAnywhere)
@@ -37,7 +44,7 @@ protected:
 	void MoveRight(float Value);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int score;
+	int Score;
 
 public:	
 	// Called every frame

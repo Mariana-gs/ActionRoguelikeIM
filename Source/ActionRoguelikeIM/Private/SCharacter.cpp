@@ -25,6 +25,8 @@ ASCharacter::ASCharacter()
 
 }
 
+
+
 // Called when the game starts or when spawned
 void ASCharacter::BeginPlay()
 {
@@ -86,4 +88,16 @@ void ASCharacter::PrimaryAttack()
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+}
+
+void ASCharacter::AdicionarPonto()
+{
+	Score++;
+}
+
+void ASCharacter::SubtrairPonto()
+{
+	if (Score > 0) {
+		Score--;
+	}
 }

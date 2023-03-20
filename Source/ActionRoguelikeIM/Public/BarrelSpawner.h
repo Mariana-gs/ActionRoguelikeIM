@@ -29,6 +29,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* SpawnPointC;
 
@@ -39,7 +41,13 @@ protected:
 	USceneComponent* SpawnPointL;
 
 	UFUNCTION(BlueprintCallable)
-	void SpawnBarrels();
+	void SpawnBarrel();
+
+	UFUNCTION()
+	void ScheduleBarrelSpawn();
+
+	UFUNCTION()
+	void SpawnBarrelScheduled();
 
 	// Actor class to spawn
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -51,6 +59,23 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool ShouldSpawn = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float AvgSpawnTime = 4.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float RandomSpawnTimeOffset = 2.f;
+
+private: 
+	UFUNCTION()
+	void SpawnRandomBarrel(FVector Location, FRotator Rotation);
+	
+	FTimerHandle Temporizador;
+
+
 
 
 };
