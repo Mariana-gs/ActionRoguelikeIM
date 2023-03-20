@@ -40,7 +40,7 @@ void ABarrelSpawner::ScheduleBarrelSpawn()
 	float DeltaToNextSpawn = AvgSpawnTime + (-RandomSpawnTimeOffset + 2 * RandomSpawnTimeOffset * FMath::FRand());
 
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Tempo para o Próximo Spawn: %f"), DeltaToNextSpawn));
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Tempo para o Proximo Spawn: %f"), DeltaToNextSpawn));
 	
 	GetWorld()->GetTimerManager().SetTimer(Temporizador, this, &ABarrelSpawner::SpawnBarrelScheduled, DeltaToNextSpawn, false);
 }
