@@ -19,6 +19,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USphereComponent* SphereComp;
+
+	UPROPERTY(VisibleAnywhere)
+	UProjectileMovementComponent* MovementComp;
+
+	UPROPERTY(VisibleAnywhere)
+	UParticleSystemComponent* EffectComp;
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
