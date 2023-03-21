@@ -4,6 +4,7 @@
 #include "Barrel.h"
 #include "Components/StaticMeshComponent.h"
 #include "SMagicProjectile.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 ABarrel::ABarrel(){
@@ -40,10 +41,16 @@ void ABarrel::Tick(float DeltaTime){
 void ABarrel::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit){
 
-	ASMagicProjectile* Projectile = Cast<ASMagicProjectile>(OtherActor);
+	UE_LOG(LogTemp, Log, TEXT("OnHit in Barrel"));
+	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s, at game time: %f"), *GetNameSafe(OtherActor), GetWorld()->TimeSeconds);
 
+	FString CombinedString = FString::Printf(TEXT("Hit at location: %s"), *Hit.ImpactPoint.ToString());
+	DrawDebugString(GetWorld(), Hit.ImpactPoint, CombinedString, nullptr, FColor::Green, 2.0f, true);
+
+	ASMagicProjectile* Projectile = Cast<ASMagicProjectile>(OtherActor);
+	
 	if(Projectile != nullptr) {
 		this->Destroy();
-		Projectile->Destroy();
+		//Projectile->Destroy();
 	}
 }

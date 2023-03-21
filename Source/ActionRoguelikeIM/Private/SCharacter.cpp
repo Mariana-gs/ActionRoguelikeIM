@@ -83,17 +83,27 @@ void ASCharacter::MoveRight(float Value)
 
 
 //Realiza Ataque 
-void ASCharacter::PrimaryAttack()
-{
+void ASCharacter::PrimaryAttack(){
+
+	PlayAnimMontage(AttackAnim);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_Timelapsed, 0.2f);
+	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
+	
+}
+
+void ASCharacter::PrimaryAttack_Timelapsed() {
+
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
 	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
-}
 
+}
 
 void ASCharacter::PrimaryInteract() {
 
@@ -103,7 +113,6 @@ void ASCharacter::PrimaryInteract() {
 	
 
 }
-
 
 //Atualiza Pontuação do Player
 void ASCharacter::AdicionarPonto()
