@@ -93,13 +93,41 @@ void ASCharacter::PrimaryAttack(){
 }
 
 void ASCharacter::PrimaryAttack_Timelapsed() {
-
+	
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
-	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	SpawnParams.Instigator = this;
+
+	//FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+	
+	FCollisionShape Shape;
+	Shape.SetSphere(20.0f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+
+
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 5000);
+
+	FHitResult Hit;
+
+	if (GetWorld()->SweepSingleByObjectType (Hit, TraceStart, TraceEnd, FQuat::Identity, ObjectQueryParams, Shape, Params)) {
+
+		TraceEnd = Hit.ImpactPoint;
+
+	}
+
+	FRotator ProjRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
+
+	FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
