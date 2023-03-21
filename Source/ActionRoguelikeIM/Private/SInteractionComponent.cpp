@@ -48,24 +48,38 @@ void USInteractionComponent::PrimaryInteract() {
 	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
 
 
-	FHitResult Hit;
-	bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
+	//FHitResult Hit;
+	//bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
 
-	AActor* HitActor = Hit.GetActor();
+	TArray<FHitResult> Hits;
 
-	if (HitActor) {
+	float Radius = 30.0f;
 
-		if (HitActor->Implements<USGameplayInterface>()) {
+	FCollisionShape Shape;
+	Shape.SetSphere(Radius);
 
-			APawn* MyPawn = Cast<APawn>(MyOwner);
+	bool bBlockingHit = GetWorld()->SweepMultiByObjectType(Hits, EyeLocation, End, FQuat::Identity, ObjectQueryParams, Shape);
+	FColor LineColor = bBlockingHit ? FColor::Green : FColor::Red;
 
-			ISGameplayInterface::Execute_Interact(HitActor, MyPawn);
 
+	for (FHitResult Hit : Hits) {
+
+		AActor* HitActor = Hit.GetActor();
+
+		if (HitActor) {
+			if (HitActor->Implements<USGameplayInterface>()) {
+
+				APawn* MyPawn = Cast<APawn>(MyOwner);
+				ISGameplayInterface::Execute_Interact(HitActor, MyPawn);
+				break;
+			}
 		}
-
+		DrawDebugSphere(GetWorld(), Hit.ImpactPoint, Radius, 32, LineColor, false, 2.0f);
 	}
 
-	FColor LineColor = bBlockingHit ? FColor::Green : FColor::Red;
+
 	DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f);
+
+	
 
 }
