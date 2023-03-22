@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "SProjectile.generated.h"
 
+class USphereComponent;
+class UProjectileMovementComponent;
+class UParticleSystemComponent; 
+
 UCLASS()
 class ACTIONROGUELIKEIM_API ASProjectile : public AActor
 {
