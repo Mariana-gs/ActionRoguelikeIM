@@ -28,7 +28,6 @@ ASCharacter::ASCharacter()
 
 	bUseControllerRotationYaw = false;
 
-
 }
 
 // Called when the game starts or when spawned
@@ -57,10 +56,15 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
-}
+	PlayerInputComponent->BindAction("BlackholeAbility", IE_Pressed, this, &ASCharacter::BlackholeAbility);
+	PlayerInputComponent->BindAction("DashAbility", IE_Pressed, this, &ASCharacter::DashAbility);
 
+	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+}
+	
+	
+//Movimentação
 void ASCharacter::MoveForward(float Value){
 	FRotator ControlRot = GetControlRotation();
 	ControlRot.Pitch = 0.0f;
@@ -69,7 +73,6 @@ void ASCharacter::MoveForward(float Value){
 	AddMovementInput(ControlRot.Vector(), Value);
 
 }
-
 void ASCharacter::MoveRight(float Value)
 {
 	FRotator ControlRot = GetControlRotation();
@@ -82,7 +85,7 @@ void ASCharacter::MoveRight(float Value)
 }
 
 
-//Realiza Ataque 
+//Ataques Habilidades
 void ASCharacter::PrimaryAttack(){
 
 	PlayAnimMontage(AttackAnim);
@@ -91,7 +94,6 @@ void ASCharacter::PrimaryAttack(){
 	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
 	
 }
-
 void ASCharacter::PrimaryAttack_Timelapsed() {
 	
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
@@ -113,7 +115,6 @@ void ASCharacter::PrimaryAttack_Timelapsed() {
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
 
-
 	FVector TraceStart = CameraComp->GetComponentLocation();
 	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 5000);
 
@@ -132,6 +133,101 @@ void ASCharacter::PrimaryAttack_Timelapsed() {
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
 }
+
+
+void ASCharacter::BlackholeAbility() {
+
+	PlayAnimMontage(AttackAnim);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::BlackholeAbility_Timelapsed, 0.2f);
+
+}
+void ASCharacter::BlackholeAbility_Timelapsed() {
+
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
+
+
+	FCollisionShape Shape;
+	Shape.SetSphere(20.0f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 5000);
+
+	FHitResult Hit;
+
+	if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity, ObjectQueryParams, Shape, Params)) {
+
+		TraceEnd = Hit.ImpactPoint;
+
+	}
+
+	FRotator ProjRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
+
+	FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
+
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+
+	
+}
+
+
+void ASCharacter::DashAbility() {
+
+	PlayAnimMontage(AttackAnim);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::DashAbility_Timelapsed, 0.2f);
+
+}
+void ASCharacter::DashAbility_Timelapsed() {
+
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParams.Instigator = this;
+
+
+	FCollisionShape Shape;
+	Shape.SetSphere(20.0f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 5000);
+
+	FHitResult Hit;
+
+	if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity, ObjectQueryParams, Shape, Params)) {
+
+		TraceEnd = Hit.ImpactPoint;
+
+	}
+
+	FRotator ProjRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
+
+	FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
+
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+
+}
+
+
 
 void ASCharacter::PrimaryInteract() {
 

@@ -61,6 +61,10 @@ protected:
 
 	void PrimaryAttack_Timelapsed();
 
+	void BlackholeAbility_Timelapsed();
+
+	void DashAbility_Timelapsed();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -70,5 +74,8 @@ public:
 
 	//Realiza Ataque 
 	void PrimaryAttack();
+	void BlackholeAbility();
+	void DashAbility();
+
 
 };
