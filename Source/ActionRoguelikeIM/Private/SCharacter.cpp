@@ -215,14 +215,13 @@ void ASCharacter::DashAbility_Timelapsed() {
 	if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity, ObjectQueryParams, Shape, Params)) {
 
 		TraceEnd = Hit.ImpactPoint;
-
 	}
 
 	FRotator ProjRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
 
 	FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+	GetWorld()->SpawnActor<AActor>(DashProjectileClass, SpawnTM, SpawnParams);
 
 }
 
