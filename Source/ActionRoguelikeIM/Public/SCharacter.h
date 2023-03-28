@@ -35,6 +35,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	TSubclassOf<AActor> BlackHoleProjectileClass;
+
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 

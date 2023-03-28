@@ -6,6 +6,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
+
 // Sets default values
 ASMagicProjectile::ASMagicProjectile()
 {
@@ -23,7 +24,9 @@ ASMagicProjectile::ASMagicProjectile()
 	MovementComp->InitialSpeed = 1000.0f;
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
+
 }
+
 
 // Called when the game starts or when spawned
 void ASMagicProjectile::BeginPlay()
@@ -31,11 +34,13 @@ void ASMagicProjectile::BeginPlay()
 	Super::BeginPlay();
 }
 
+
 // Called every frame
 void ASMagicProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+
 
 
 

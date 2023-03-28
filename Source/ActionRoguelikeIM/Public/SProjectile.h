@@ -32,7 +32,6 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* EffectComp;
 
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

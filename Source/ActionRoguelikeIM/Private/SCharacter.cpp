@@ -176,9 +176,9 @@ void ASCharacter::BlackholeAbility_Timelapsed() {
 
 	FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+	GetWorld()->SpawnActor<AActor>(BlackHoleProjectileClass, SpawnTM, SpawnParams);
 
-	
+
 }
 
 
@@ -195,7 +195,6 @@ void ASCharacter::DashAbility_Timelapsed() {
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	SpawnParams.Instigator = this;
-
 
 	FCollisionShape Shape;
 	Shape.SetSphere(20.0f);
@@ -227,14 +226,11 @@ void ASCharacter::DashAbility_Timelapsed() {
 
 }
 
-
-
 void ASCharacter::PrimaryInteract() {
 
 	if (InteractionComp) {
 		InteractionComp->PrimaryInteract();
 	}
-	
 
 }
 
