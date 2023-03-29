@@ -30,7 +30,6 @@ protected:
 
 	void TeleportInstigator();
 
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -2,6 +2,8 @@
 
 
 #include "SDashProjectile.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 
 
 // Sets default values
@@ -13,21 +15,18 @@ ASDashProjectile::ASDashProjectile()
 	TeleportDelay = 0.2f;
 	DetonateDelay = 0.2f;
 
-	
-
+	MovementComp->InitialSpeed = 6000.f;
 }
 
 // Called when the game starts or when spawned
 void ASDashProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ASDashProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
