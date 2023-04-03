@@ -29,7 +29,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 		UParticleSystemComponent* EffectComp;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere)
 		UParticleSystem* ImpactVFX;
 
 	// Called when the game starts or when spawned
