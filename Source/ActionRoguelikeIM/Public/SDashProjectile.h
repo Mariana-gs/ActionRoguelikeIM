@@ -28,6 +28,8 @@ protected:
 
 	FTimerHandle TimerHandle_DelayedDetonate;
 
+	void Explode();
+
 	void TeleportInstigator();
 
 public:	

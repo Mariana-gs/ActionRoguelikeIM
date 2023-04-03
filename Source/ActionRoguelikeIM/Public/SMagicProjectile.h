@@ -30,6 +30,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* EffectComp;
+
+	UPROPERTY(VisibleAnywhere)
+	UParticleSystem* ImpactVFX;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
