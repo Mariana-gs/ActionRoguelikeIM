@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SProjectile.h"
+#include "SMagicProjectile.h"
 #include "GameFramework/Actor.h"
 #include "SDashProjectile.generated.h"
 
 UCLASS()
-class ACTIONROGUELIKEIM_API ASDashProjectile : public ASProjectile
+class ACTIONROGUELIKEIM_API ASDashProjectile : public ASMagicProjectile
 {
 	GENERATED_BODY()
 	
