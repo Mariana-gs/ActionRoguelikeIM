@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
 class UAnimMontage;
+class USAttributeComponent;
 
 UCLASS()
 class ACTIONROGUELIKEIM_API ASCharacter : public ACharacter
@@ -57,6 +58,9 @@ protected:
 
 	FTimerHandle TimerHandle_PrimaryAttack;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	USAttributeComponent* AttributeComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -83,6 +87,5 @@ public:
 	void PrimaryAttack();
 	void BlackholeAbility();
 	void DashAbility();
-
 
 };
