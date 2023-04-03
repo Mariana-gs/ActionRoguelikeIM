@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "SProjectile.h"
 #include "SMagicProjectile.generated.h"
 
 class USphereComponent;
@@ -12,7 +13,7 @@ class UParticleSystemComponent;
 
 
 UCLASS()
-class ACTIONROGUELIKEIM_API ASMagicProjectile : public AActor
+class ACTIONROGUELIKEIM_API ASMagicProjectile : public ASProjectile
 {
 	GENERATED_BODY()
 	
@@ -21,18 +22,6 @@ public:
 	ASMagicProjectile();
 
 protected:
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USphereComponent* SphereComp;
-
-	UPROPERTY(VisibleAnywhere)
-	UProjectileMovementComponent* MovementComp;
-
-	UPROPERTY(VisibleAnywhere)
-	UParticleSystemComponent* EffectComp;
-
-	UPROPERTY(VisibleAnywhere)
-	UParticleSystem* ImpactVFX;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

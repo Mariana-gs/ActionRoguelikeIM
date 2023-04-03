@@ -8,7 +8,7 @@
 
 class USphereComponent;
 class UProjectileMovementComponent;
-class UParticleSystemComponent; 
+class UParticleSystemComponent;
 
 UCLASS()
 class ACTIONROGUELIKEIM_API ASProjectile : public AActor
@@ -20,17 +20,20 @@ public:
 	ASProjectile();
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		USphereComponent* SphereComp;
+
+	UPROPERTY(VisibleAnywhere)
+		UProjectileMovementComponent* MovementComp;
+
+	UPROPERTY(VisibleAnywhere)
+		UParticleSystemComponent* EffectComp;
+
+	UPROPERTY(VisibleAnywhere)
+		UParticleSystem* ImpactVFX;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USphereComponent* SphereComp;
-
-	UPROPERTY(VisibleAnywhere)
-	UProjectileMovementComponent* MovementComp;
-
-	UPROPERTY(VisibleAnywhere)
-	UParticleSystemComponent* EffectComp;
 
 public:	
 	// Called every frame
