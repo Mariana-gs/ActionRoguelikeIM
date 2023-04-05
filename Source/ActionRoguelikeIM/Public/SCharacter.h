@@ -11,6 +11,7 @@ class USpringArmComponent;
 class USInteractionComponent;
 class UAnimMontage;
 class USAttributeComponent;
+class UParticleSystemComponent;
 
 UCLASS()
 class ACTIONROGUELIKEIM_API ASCharacter : public ACharacter
@@ -30,6 +31,9 @@ public:
 
 protected:
 
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* HandEffect;
+
 	UPROPERTY(EditAnywhere, Category="Attack")
 	UAnimMontage* AttackAnim;
 
@@ -38,7 +42,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> BlackHoleProjectileClass;
-
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	TSubclassOf<AActor> DashProjectileClass;

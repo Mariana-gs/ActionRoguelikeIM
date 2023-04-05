@@ -2,12 +2,14 @@
 
 
 #include "SCharacter.h"
+#include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "..\Public\SCharacter.h"
 #include "SInteractionComponent.h"
 #include "SAttributeComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -25,6 +27,8 @@ ASCharacter::ASCharacter()
 	InteractionComp = CreateDefaultSubobject<USInteractionComponent>("InteractionComp");
 
 	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
+
+	HandEffect = CreateDefaultSubobject<UParticleSystem>("HandEffect");
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
@@ -98,11 +102,15 @@ void ASCharacter::PrimaryAttack(){
 
 	PlayAnimMontage(AttackAnim);
 
+	UGameplayStatics::SpawnEmitterAttached(HandEffect, GetMesh(), "Muzzle_1", FVector::ZeroVector,EAttachLocation::SnapToTarget);
+
 	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_Timelapsed, 0.2f);
 	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
 	
 }
 void ASCharacter::PrimaryAttack_Timelapsed() {
+
+
 	
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
