@@ -255,8 +255,17 @@ void ASCharacter::SubtrairPonto()
 }
 
 void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta) {
+	
+	//Desabilitar input do Player ao morrer
 	if (NewHealth <= 0.0f && Delta < 0.0f) {
 		APlayerController* PC = Cast<APlayerController>(GetController());
 		DisableInput(PC);
 	}
+
+	if (Delta < 0.0f) {
+		//HitFlash
+		GetMesh()->SetScalarParameterValueOnMaterials("TimeToHit", GetWorld()->TimeSeconds);
+	}
+
+
 }
