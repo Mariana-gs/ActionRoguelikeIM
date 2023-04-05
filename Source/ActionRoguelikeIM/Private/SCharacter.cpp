@@ -254,7 +254,7 @@ void ASCharacter::SubtrairPonto()
 	}
 }
 
-void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta) {
+void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta, float HealthMax) {
 	
 	//Desabilitar input do Player ao morrer
 	if (NewHealth <= 0.0f && Delta < 0.0f) {

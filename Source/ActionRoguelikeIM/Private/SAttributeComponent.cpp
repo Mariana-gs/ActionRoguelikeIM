@@ -8,15 +8,18 @@ USAttributeComponent::USAttributeComponent()
 {
 
 	Health = 100;
-
+	HealthMax = 100;
 }
 
 
 bool USAttributeComponent::ApplyHealthChange(float Delta) {
 
-	Health += Delta;
+	//Manter vida entre 0 e HealthMax
+	if (Health + Delta >= 0 && Health + Delta <= HealthMax) {
+		Health += Delta;
+	}
 	
-	OnHealthChanged.Broadcast(nullptr, this, Health, Delta);
+	OnHealthChanged.Broadcast(nullptr, this, Health, Delta, HealthMax);
 
 	return true;
 

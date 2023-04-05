@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 ASProjectile::ASProjectile()
@@ -23,6 +24,9 @@ ASProjectile::ASProjectile()
 	MovementComp->InitialSpeed = 1000.0f;
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
+
+	FlightSound = CreateDefaultSubobject<UAudioComponent>("FlightSound");
+	ImpactSound = CreateDefaultSubobject<UAudioComponent>("ImpactSound");
 
 }
 

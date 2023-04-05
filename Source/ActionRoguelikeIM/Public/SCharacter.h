@@ -77,7 +77,7 @@ protected:
 	void DashAbility_Timelapsed();
 
 	UFUNCTION()
-	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComp, float NewHealth, float Delta, float HealthMax);
 
 	virtual void PostInitializeComponents() override;
 

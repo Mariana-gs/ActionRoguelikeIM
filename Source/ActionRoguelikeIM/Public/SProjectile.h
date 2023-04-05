@@ -9,6 +9,7 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
+class UAudioComponent;
 
 UCLASS()
 class ACTIONROGUELIKEIM_API ASProjectile : public AActor
@@ -31,6 +32,12 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		UParticleSystem* ImpactVFX;
+
+	UPROPERTY(EditAnywhere)
+		UAudioComponent* FlightSound;
+
+	UPROPERTY(EditAnywhere)
+		UAudioComponent* ImpactSound;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
