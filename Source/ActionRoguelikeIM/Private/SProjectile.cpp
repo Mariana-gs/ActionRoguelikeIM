@@ -3,9 +3,11 @@
 
 #include "SMagicProjectile.h"
 #include "Components/SphereComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/AudioComponent.h"
+#include "Sound/SoundBase.h"
 
 // Sets default values
 ASProjectile::ASProjectile()
@@ -24,7 +26,7 @@ ASProjectile::ASProjectile()
 	MovementComp->InitialSpeed = 1000.0f;
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
-
+	
 	FlightSound = CreateDefaultSubobject<UAudioComponent>("FlightSound");
 	ImpactSound = CreateDefaultSubobject<UAudioComponent>("ImpactSound");
 
@@ -34,7 +36,14 @@ ASProjectile::ASProjectile()
 void ASProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	FVector Location = GetActorLocation();
+	FRotator Rotation = GetActorRotation();
+
+	//if (FlightSound) {
+		//UGameplayStatics::PlaySoundAtLocation(GetWorld(), FlightSound, Location, Rotation);
+	//}
+
 }
 
 // Called every frame
@@ -42,5 +51,7 @@ void ASProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
 }
+
 

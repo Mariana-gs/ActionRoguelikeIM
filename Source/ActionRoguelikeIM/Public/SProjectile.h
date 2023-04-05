@@ -11,6 +11,7 @@ class UProjectileMovementComponent;
 class UParticleSystemComponent;
 class UAudioComponent;
 
+
 UCLASS()
 class ACTIONROGUELIKEIM_API ASProjectile : public AActor
 {
@@ -33,10 +34,10 @@ protected:
 	UPROPERTY(EditAnywhere)
 		UParticleSystem* ImpactVFX;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UAudioComponent* FlightSound;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UAudioComponent* ImpactSound;
 
 	// Called when the game starts or when spawned
