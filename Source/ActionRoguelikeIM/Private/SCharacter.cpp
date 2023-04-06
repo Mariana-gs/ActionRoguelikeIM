@@ -102,7 +102,7 @@ void ASCharacter::PrimaryAttack(){
 
 	PlayAnimMontage(AttackAnim);
 
-	UGameplayStatics::SpawnEmitterAttached(HandEffect, GetMesh(), "Muzzle_1", FVector::ZeroVector,EAttachLocation::SnapToTarget);
+	//UGameplayStatics::SpawnEmitterAttached(HandEffect, GetMesh(), "Muzzle_1", FVector::ZeroVector,EAttachLocation::SnapToTarget);
 
 	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_Timelapsed, 0.2f);
 	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
